@@ -1,6 +1,16 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class CreateTeacherDto {
-    id: Int16Array;
+    @ApiProperty({
+        description: 'Teacher e-mail'
+    })
     email: string;
+    @ApiProperty({
+        description: 'Name of teacher'
+    })
     name: string;
+    @ApiProperty({
+        description: 'Material techer work'
+    })
     schoolMaterial: string;
 }
