@@ -3,14 +3,16 @@ CREATE TABLE "Teacher" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "schoolMaterial" TEXT NOT NULL
+    "schoolMaterial" TEXT NOT NULL,
+    "password" TEXT NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "Student" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "email" TEXT NOT NULL,
-    "name" TEXT NOT NULL
+    "name" TEXT NOT NULL,
+    "password" TEXT NOT NULL
 );
 
 -- CreateTable
@@ -33,3 +35,6 @@ CREATE TABLE "Comment" (
     CONSTRAINT "Comment_postid_fkey" FOREIGN KEY ("postid") REFERENCES "Post" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT "Comment_studentid_fkey" FOREIGN KEY ("studentid") REFERENCES "Student" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Teacher_email_key" ON "Teacher"("email");

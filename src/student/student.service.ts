@@ -1,26 +1,75 @@
 import { Injectable } from '@nestjs/common';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
+import { PrismaService } from 'src/database/prisma.service';
+import { LoginStudent } from './dto/login-student.dto';
+import { UpdatePasswordStudent } from './dto/update-password-student.dto';
 
 @Injectable()
 export class StudentService {
+
+  constructor(private prisma: PrismaService) { }
+
   create(createStudentDto: CreateStudentDto) {
-    return 'This action adds a new student';
+    const student = this.prisma.student.create({
+      data: {
+        email: createStudentDto.email,
+        name: createStudentDto.name,
+        password: createStudentDto.password
+      }
+    })
+    return student;
   }
 
   findAll() {
-    return `This action returns all student`;
+    return this.prisma.student.findMany();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} student`;
+    return this.prisma.student.findFirst({
+      where: { id }
+    });
   }
 
   update(id: number, updateStudentDto: UpdateStudentDto) {
-    return `This action updates a #${id} student`;
+    return this.prisma.student.update({
+      where: { id },
+      data: {
+        name: updateStudentDto.name,
+        email: updateStudentDto.email
+      }
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} student`;
+    return this.prisma.student.delete({
+      where: { id }
+    });
+  }
+
+  login(loginStudent: LoginStudent) {
+    const teacher = this.prisma.teacher.findFirst({
+      where: {
+        AND: [
+          { email: loginStudent.email },
+          { password: loginStudent.password }
+        ]
+      }
+    })
+
+    if (teacher == null)
+      return false
+
+    return true
+  }
+
+  passwordUpdate(updatePasswordStudent: UpdatePasswordStudent) {
+    const newPasswordStudent = this.prisma.teacher.update({
+      where: { email: updatePasswordStudent.email },
+      data: {
+        password: updatePasswordStudent.password
+      }
+    })
+    return newPasswordStudent
   }
 }
