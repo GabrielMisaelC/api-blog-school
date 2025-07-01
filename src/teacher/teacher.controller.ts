@@ -4,9 +4,6 @@ import { CreateTeacherDto } from './dto/create-teacher.dto';
 import { UpdateTeacherDto } from './dto/update-teacher.dto';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiParam } from '@nestjs/swagger';
 import { TeacherModule } from './teacher.module';
-import { UpdatePasswordTeacher } from './dto/update-password-teacher.dto';
-import { LoginTeacher } from './dto/login-teacher.dto';
-
 
 @ApiTags('teacher')
 @Controller('teacher')
@@ -52,31 +49,33 @@ export class TeacherController {
   @ApiResponse({ status: 202, description: 'None found.'})
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiResponse({ status: 500, description: 'Internal error.'})
-  @ApiBody({ type: CreateTeacherDto })
+  @ApiBody({ type: UpdateTeacherDto })
   update(@Param('id') id: string, @Body() updateTeacherDto: UpdateTeacherDto) {
     return this.teacherService.update(+id, updateTeacherDto);
   }
 
-  @Patch()
+  @Patch(':email/:password')
   @ApiOperation({ summary: 'Update password teacher' })
   @ApiResponse({ status: 201, description: 'successfully.', type: TeacherModule})
   @ApiResponse({ status: 202, description: 'None found.'})
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiResponse({ status: 500, description: 'Internal error.'})
-  @ApiBody({ type: UpdatePasswordTeacher })
-  passwordUpdate(@Body() updatePasswordTeacher: UpdatePasswordTeacher) {
-    return this.teacherService.passwordUpdate(updatePasswordTeacher);
+  @ApiParam({name: 'email', description: 'Email of teacher', required: true, type: String,})
+  @ApiParam({name: 'password', description: 'Password of teacher', required: true, type: String,})
+  passwordUpdate(@Param('email') email: string, @Param('password') password: string) {
+    return this.teacherService.passwordUpdate(email, password);
   }
 
-  @Get()
+  @Get(':email/:password')
   @ApiOperation({ summary: 'Login teacher' })
   @ApiResponse({ status: 201, description: 'successfully.', type: TeacherModule})
   @ApiResponse({ status: 202, description: 'None found.'})
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiResponse({ status: 500, description: 'Internal error.'})
-  @ApiBody({ type: LoginTeacher })
-  login(@Body() loginTeacher: LoginTeacher) {
-    return this.teacherService.login(loginTeacher);
+  @ApiParam({name: 'email', description: 'Email of teacher', required: true, type: String,})
+  @ApiParam({name: 'password', description: 'Password of teacher', required: true, type: String,})
+  login(@Param('email') email: string, @Param('password') password: string) {
+    return this.teacherService.login(email, password);
   }
 
   @Delete(':id')

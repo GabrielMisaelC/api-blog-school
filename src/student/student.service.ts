@@ -47,12 +47,12 @@ export class StudentService {
     });
   }
 
-  login(loginStudent: LoginStudent) {
+  login(email: string, password: string) {
     const teacher = this.prisma.teacher.findFirst({
       where: {
         AND: [
-          { email: loginStudent.email },
-          { password: loginStudent.password }
+          { email: email },
+          { password: password }
         ]
       }
     })
@@ -63,11 +63,11 @@ export class StudentService {
     return true
   }
 
-  passwordUpdate(updatePasswordStudent: UpdatePasswordStudent) {
+  passwordUpdate(email: string, password: string) {
     const newPasswordStudent = this.prisma.teacher.update({
-      where: { email: updatePasswordStudent.email },
+      where: { email: email },
       data: {
-        password: updatePasswordStudent.password
+        password: password
       }
     })
     return newPasswordStudent

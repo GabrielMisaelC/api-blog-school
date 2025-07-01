@@ -67,25 +67,27 @@ export class StudentController {
     return this.studentService.remove(+id);
   }
 
-  @Patch()
+  @Patch(':email/:password')
   @ApiOperation({ summary: 'Update password student' })
   @ApiResponse({ status: 201, description: 'successfully.', type: StudentModule })
   @ApiResponse({ status: 202, description: 'None found.' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiResponse({ status: 500, description: 'Internal error.' })
-  @ApiBody({ type: UpdatePasswordStudent })
-  passwordUpdate(@Body() updatePasswordStudent: UpdatePasswordStudent) {
-    return this.studentService.passwordUpdate(updatePasswordStudent);
+  @ApiParam({ name: 'email', description: 'Email of student', required: true, type: String, })
+  @ApiParam({ name: 'password', description: 'Password of student', required: true, type: String, })
+  passwordUpdate(@Param('email') email: string, @Param('password') password: string) {
+    return this.studentService.passwordUpdate(email, password);
   }
 
-  @Get()
+  @Get(':email/:password')
   @ApiOperation({ summary: 'Login student' })
   @ApiResponse({ status: 201, description: 'successfully.', type: StudentModule })
   @ApiResponse({ status: 202, description: 'None found.' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiResponse({ status: 500, description: 'Internal error.' })
-  @ApiBody({ type: LoginStudent })
-  login(@Body() loginStudent: LoginStudent) {
-    return this.studentService.login(loginStudent);
+  @ApiParam({name: 'email', description: 'Email of student', required: true, type: String,})
+  @ApiParam({name: 'password', description: 'Password of student', required: true, type: String,})
+  login(@Param('email') email: string, @Param('password') password: string) {
+    return this.studentService.login(email, password);
   }
 }

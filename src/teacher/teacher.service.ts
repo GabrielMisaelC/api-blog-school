@@ -2,10 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
 import { UpdateTeacherDto } from './dto/update-teacher.dto';
 import { PrismaService } from 'src/database/prisma.service';
-import { empty } from 'generated/prisma/runtime/library';
 import { UpdatePasswordTeacher } from './dto/update-password-teacher.dto';
-import { LoginTeacher } from './dto/login-teacher.dto';
-
 
 @Injectable()
 export class TeacherService {
@@ -51,12 +48,12 @@ export class TeacherService {
     });
   }
 
-  login(loginTeacher: LoginTeacher){
+  login(email: string, password: string){
     const teacher = this.prisma.teacher.findFirst({
       where: {
         AND: [
-          {email: loginTeacher.email},
-          {password: loginTeacher.password}
+          {email: email},
+          {password: password}
         ]
       }
     })
@@ -67,11 +64,11 @@ export class TeacherService {
     return true
   }
 
-  passwordUpdate(updatePasswordTeacher: UpdatePasswordTeacher){
+  passwordUpdate(email: string, password: string){
     const newPasswordTeacher = this.prisma.teacher.update({
-      where: {email: updatePasswordTeacher.email},
+      where: {email: email},
       data: {
-        password: updatePasswordTeacher.password
+        password: password
       }
     })
     return newPasswordTeacher
