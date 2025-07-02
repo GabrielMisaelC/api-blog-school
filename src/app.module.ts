@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { StudentModule } from './student/student.module';
 import { PostModule } from './post/post.module';
-import { TeacherModule } from './teacher/teacher.module';
 import { CommentModule } from './comment/comment.module';
+import { PersonModule } from './person/person.module';
+import { SchoolMaterialModule } from './school-material/school-material.module';
 
 @Module({
-  imports: [StudentModule, TeacherModule, PostModule, CommentModule],
+  imports: [PostModule, CommentModule, PersonModule, SchoolMaterialModule],
   controllers: [],
   providers: [],
 })

@@ -14,7 +14,7 @@ export class CreateCommentDto {
     })
     postid: number;
     @ApiProperty({
-        description: 'Comment studentId'
+        description: 'Comment personId'
     })
-    studentid: number;
+    personid: number;
 }
