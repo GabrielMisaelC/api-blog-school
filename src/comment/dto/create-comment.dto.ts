@@ -1,7 +1,20 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 export class CreateCommentDto {
-    id: Int16Array;
+    @ApiProperty({
+        description: 'Comment content'
+    })
     content: string;
+    @ApiProperty({
+        description: 'Comment published'
+    })
     published: boolean;
-    postid: Int16Array;
-    studentid: Int16Array;
+    @ApiProperty({
+        description: 'Comment postId'
+    })
+    postid: number;
+    @ApiProperty({
+        description: 'Comment studentId'
+    })
+    studentid: number;
 }

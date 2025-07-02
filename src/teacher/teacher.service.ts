@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
 import { UpdateTeacherDto } from './dto/update-teacher.dto';
 import { PrismaService } from 'src/database/prisma.service';
-
+import { UpdatePasswordTeacher } from './dto/update-password-teacher.dto';
 
 @Injectable()
 export class TeacherService {
@@ -14,7 +14,8 @@ export class TeacherService {
       data: {
         name: createTeacherDto.name,
         email: createTeacherDto.email,
-        schoolMaterial: createTeacherDto.email
+        schoolMaterial: createTeacherDto.email,
+        password: createTeacherDto.password
       }
     })
     return teacher;
@@ -45,5 +46,31 @@ export class TeacherService {
     return this.prisma.teacher.delete({
       where: {id}
     });
+  }
+
+  login(email: string, password: string){
+    const teacher = this.prisma.teacher.findFirst({
+      where: {
+        AND: [
+          {email: email},
+          {password: password}
+        ]
+      }
+    })
+
+    if(teacher == null)
+      return false
+
+    return true
+  }
+
+  passwordUpdate(email: string, password: string){
+    const newPasswordTeacher = this.prisma.teacher.update({
+      where: {email: email},
+      data: {
+        password: password
+      }
+    })
+    return newPasswordTeacher
   }
 }

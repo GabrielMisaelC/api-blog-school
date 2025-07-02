@@ -1,7 +1,20 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class CreatePostDto {
-    id: Int16Array;
+    @ApiProperty({
+        description: 'Post title'
+    })
     title: string;
+    @ApiProperty({
+        description: 'Post content'
+    })
     content?: string;
+    @ApiProperty({
+        description: 'Post publish'
+    })
     published: boolean;
-    teacherid: Int16Array;
+    @ApiProperty({
+        description: 'Post id teacher'
+    })
+    teacherid: number;
 }

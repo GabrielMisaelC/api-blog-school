@@ -16,17 +16,19 @@ datasource db {
 
 model Teacher {
   id             Int    @id @default(autoincrement())
-  email          String
+  email          String @unique
   name           String
   schoolMaterial String
+  password       String
   post           Post[]
 }
 
 model Student {
-  id      Int       @id @default(autoincrement())
-  email   String
-  name    String
-  comment Comment[]
+  id       Int       @id @default(autoincrement())
+  email    String
+  name     String
+  password String
+  comment  Comment[]
 }
 
 model Post {
