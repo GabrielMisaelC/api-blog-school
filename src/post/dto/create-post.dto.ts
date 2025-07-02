@@ -14,7 +14,7 @@ export class CreatePostDto {
     })
     published: boolean;
     @ApiProperty({
-        description: 'Post id teacher'
+        description: 'Post id person'
     })
-    teacherid: number;
+    personid: number;
 }

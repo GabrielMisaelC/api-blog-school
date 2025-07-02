@@ -14,7 +14,7 @@ export class CommentService {
         content: createCommentDto.content,
         postid: createCommentDto.postid,
         published: createCommentDto.published,
-        studentid: createCommentDto.studentid
+        personid: createCommentDto.personid
       }
     })
     return comment;

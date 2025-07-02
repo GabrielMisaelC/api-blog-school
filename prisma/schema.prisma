@@ -14,21 +14,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Teacher {
-  id             Int    @id @default(autoincrement())
-  email          String @unique
-  name           String
-  schoolMaterial String
-  password       String
-  post           Post[]
+model Person {
+  id                   Int                    @id @default(autoincrement())
+  email                String                 @unique
+  name                 String
+  password             String
+  isTeacher            Boolean
+  isStudent            Boolean
+  post                 Post[]
+  comment              Comment[]
+  personSchoolMaterial PersonSchoolMaterial[]
 }
 
-model Student {
-  id       Int       @id @default(autoincrement())
-  email    String
-  name     String
-  password String
-  comment  Comment[]
+model schoolMaterial {
+  id                   Int                    @id @default(autoincrement())
+  name                 String
+  personSchoolMaterial PersonSchoolMaterial[]
+}
+
+model PersonSchoolMaterial {
+  id             Int     @id @default(autoincrement())
+  person         Person? @relation(fields: [personid], references: [id])
+  personid       Int
+  schoolMaterial schoolMaterial? @relation(fields: [schoolMaterialid], references: [id])
+  schoolMaterialid Int
 }
 
 model Post {
@@ -36,8 +45,8 @@ model Post {
   title     String
   content   String?
   published Boolean?  @default(false)
-  teacher   Teacher?  @relation(fields: [teacherid], references: [id])
-  teacherid Int?
+  person    Person?   @relation(fields: [personid], references: [id])
+  personid  Int?
   comment   Comment[]
 }
 
@@ -47,6 +56,6 @@ model Comment {
   published Boolean? @default(false)
   post      Post?    @relation(fields: [postid], references: [id])
   postid    Int?
-  student   Student? @relation(fields: [studentid], references: [id])
-  studentid Int?
+  person    Person?  @relation(fields: [personid], references: [id])
+  personid  Int?
 }

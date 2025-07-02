@@ -14,7 +14,7 @@ export class PostService {
         title: createPostDto.title,
         published: createPostDto.published,
         content: createPostDto.content,
-        teacher: {connect: {id: createPostDto.teacherid}},
+        personid: createPostDto.personid,
       }
     })
     return post;
