@@ -53,8 +53,8 @@ export class PostService {
     return this.prisma.post.findMany({
       where: {
         OR: [
-          { title: { contains: searchPostsDto.query, mode: 'insensitive' } },
-          { content: { contains: searchPostsDto.query, mode: 'insensitive' } }
+          { title: { contains: searchPostsDto.query} },
+          { content: { contains: searchPostsDto.query} }
         ]
       },
       include: {

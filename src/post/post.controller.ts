@@ -66,16 +66,16 @@ export class PostController {
     return this.postService.remove(+id);
   }
 
-  @Get('search')
+  @Get(':search')
   @ApiOperation({ summary: 'Search posts by keyword' })
+  @ApiResponse({ status: 200, description: 'List of posts matching the search query' })
+  @ApiResponse({ status: 400, description: 'Bad request - query parameter is required' })
   @ApiQuery({
     name: 'query',
     required: true,
     description: 'Search term to find in post title or content',
     type: String
   })
-  @ApiResponse({ status: 200, description: 'List of posts matching the search query' })
-  @ApiResponse({ status: 400, description: 'Bad request - query parameter is required' })
   search(@Query() searchPostsDto: SearchPostsDto) {
     return this.postService.search(searchPostsDto);
   }
