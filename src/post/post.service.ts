@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { SearchPostsDto } from './dto/search-posts.dto';
 import { PrismaService } from 'src/database/prisma.service';
 
 @Injectable()
@@ -45,6 +46,25 @@ export class PostService {
   remove(id: number) {
     return this.prisma.post.delete({
       where: {id}
+    });
+  }
+
+  async search(searchPostsDto: SearchPostsDto) {
+    return this.prisma.post.findMany({
+      where: {
+        OR: [
+          { title: { contains: searchPostsDto.query, mode: 'insensitive' } },
+          { content: { contains: searchPostsDto.query, mode: 'insensitive' } }
+        ]
+      },
+      include: {
+        person: {
+          select: {
+            name: true,
+            email: true
+          }
+        }
+      }
     });
   }
 }
