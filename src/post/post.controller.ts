@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiParam } from '@nestjs/swagger';
+import { SearchPostsDto } from './dto/search-posts.dto';
+import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { PostModule } from './post.module';
 
 @ApiTags('post')
@@ -63,5 +64,19 @@ export class PostController {
   @ApiResponse({ status: 500, description: 'Internal error.'})
   remove(@Param('id') id: string) {
     return this.postService.remove(+id);
+  }
+
+  @Get(':search')
+  @ApiOperation({ summary: 'Search posts by keyword' })
+  @ApiResponse({ status: 200, description: 'List of posts matching the search query' })
+  @ApiResponse({ status: 400, description: 'Bad request - query parameter is required' })
+  @ApiQuery({
+    name: 'query',
+    required: true,
+    description: 'Search term to find in post title or content',
+    type: String
+  })
+  search(@Query() searchPostsDto: SearchPostsDto) {
+    return this.postService.search(searchPostsDto);
   }
 }
