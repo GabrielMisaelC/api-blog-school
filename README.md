@@ -1,148 +1,98 @@
-# Documentação do Tech Challenge Fase 02
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
 
-## Descrição do Projeto
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-Este projeto foi desenvolvido com o objetivo de oferecer uma plataforma digital para professores da rede pública compartilharem conteúdos educacionais por meio de postagens em formato de blog. A versão atual refatora o back-end da aplicação anterior, criada em OutSystems, para uma arquitetura escalável baseada em Node.js.
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
----
+## Description
 
-## Tecnologias Utilizadas
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-- **Node.js**
-- **NestJS**
-- **MongoDB**
-- **Docker**
-- **GitHub Actions**
-- **Jest**
-
----
-
-## Arquitetura da Aplicação
-
-A estrutura do projeto segue o padrão do **NestJS**, que adota o paradigma modular e a arquitetura baseada em **Domain Driven Design (DDD)**:
-
-```
-📦 src
- ┣ 📂post
- ┃ ┣ 📂dto
- ┃ ┣ 📂entities
- ┃ ┣ 📜post.controller.ts
- ┃ ┣ 📜post.service.ts
- ┃ ┣ 📜post.module.ts
- ┣ 📂person
- ┃ ┣ 📂dto
- ┃ ┣ 📂entities
- ┃ ┣ 📜person.controller.ts
- ┃ ┣ 📜person.service.ts
- ┃ ┣ 📜person.module.ts
- ┣ 📂comment
- ┃ ┣ 📂dto
- ┃ ┣ 📂entities
- ┃ ┣ 📜comment.controller.ts
- ┃ ┣ 📜comment.service.ts
- ┃ ┣ 📜comment.module.ts
- ┣ 📂common
- ┣ 📂app.module.ts
- ┣ 📂main.ts
-```
-
-- **Modules**: Organização das funcionalidades em domínios isolados (ex: `post.module`).
-- **Controllers**: Responsáveis por lidar com as requisições HTTP e chamar os serviços.
-- **Services**: Contêm a lógica de negócio da aplicação.
-- **DTOs**: Objetos de transferência de dados usados para validação e tipagem.
-- **Entities**: Representam os modelos da base de dados.
-
----
-
-## Setup Inicial
-
-### Pré-requisitos
-
-- Node.js 18+
-- Docker + Docker Compose
-- Sqlite (caso queira rodar sem Docker)
-
-### Instalação
+## Project setup
 
 ```bash
-# Clone o repositório
-git clone https://github.com/GabrielMisaelC/api-blog-school.git
-
-# Acesse o diretório
-cd api-blog-school
-
-# Instale as dependências
-npm install
+$ npm install
 ```
 
-### Rodando com Docker
+## Compile and run the project
 
 ```bash
-# Inicie os serviços
-docker-compose up
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
 ```
 
-A API estará disponível em: `http://localhost:3000`
-
----
-
-## Testes
-
-Para rodar os testes unitários:
+## Run tests
 
 ```bash
-npm run test
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
 ```
 
-O projeto garante cobertura, principalmente em criação, edição e exclusão de postagens.
+## Deployment
 
----
+When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
 
-## Endpoints da API
+If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
 
-| Método | Rota            | Descrição                                       |
-| ------ | --------------- | ----------------------------------------------- |
-| GET    | `/post`         | Lista todos os posts                            |
-| GET    | `/post/:id`     | Retorna o conteúdo de um post                   |
-| POST   | `/post`         | Cria uma nova postagem                          |
-| PUT    | `/post/:id`     | Edita uma postagem existente                    |
-| DELETE | `/post/:id`     | Exclui uma postagem                             |
-| GET    | `/post/search`  | Busca postagens por termo no título ou conteúdo |
-| GET    | `/person`       | Lista todos os person                           |
-| GET    | `/person/:id`   | Retorna o conteúdo de um person                 |
-| POST   | `/person`       | Cria uma nova person                            |
-| PUT    | `/person/:id`   | Edita uma person   existente                    |
-| DELETE | `/person/:id`   | Exclui um person                                |
+```bash
+$ npm install -g @nestjs/mau
+$ mau deploy
+```
 
-> Todos os dados são enviados e recebidos em **JSON**.
+With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
----
+## Resources
 
-## CI/CD com GitHub Actions
+Check out a few resources that may come in handy when working with NestJS:
 
-O projeto possui um workflow configurado (`.github/workflows/node.js.yml`) que executa:
+- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
+- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
+- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
+- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
+- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
+- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
+- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
+- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-- Instalação de dependências
-- Execução de testes
-- Validação de builds
+## Support
 
----
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Docker
+## Stay in touch
 
-O projeto conta com os seguintes arquivos para containerização:
+- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-- `Dockerfile`: para build da aplicação
-- `docker-compose.yml`: orquestra MongoDB e aplicação Node.js
+## License
 
----
-
-## Experiência da Equipe
-
-Durante o desenvolvimento enfrentamos desafios como:
-
-- Definição de estrutura escalável no Node.js
-- Aprendizado e integração do Docker e GitHub Actions
-- Garantia de cobertura mínima de testes em tempo hábil
-
-A colaboração em equipe e a divisão de responsabilidades foram essenciais para cumprir os prazos com qualidade.
+Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
