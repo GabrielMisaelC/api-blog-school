@@ -23,7 +23,16 @@ export class CommentService {
   findAll(postId: number) {
     return this.prisma.comment.findMany({
       where: {
-        postid: postId
+        postid: postId,
+      }
+    });
+  }
+
+  findAllExcPublished(postId: number) {
+    return this.prisma.comment.findMany({
+      where: {
+        postid: postId,
+        published: true
       }
     });
   }

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { PrismaService } from 'src/database/prisma.service';
+import { Person } from './entities/person.entity';
 
 @Injectable()
 export class PersonService {
@@ -29,6 +30,20 @@ export class PersonService {
     return this.prisma.person.findFirst({
       where: { id }
     });
+  }
+
+  async login(email: string, password: string): Promise<{ isSuccess: boolean; person: Person | null }> {
+    const person = await this.prisma.person.findUnique({
+      where: {
+        email,
+        password,
+      },
+    });
+
+    return {
+      isSuccess: !!person,
+      person: person ?? null,
+    };
   }
 
   update(id: number, updatePersonDto: UpdatePersonDto) {

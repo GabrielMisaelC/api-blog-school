@@ -25,6 +25,14 @@ export class PostService {
     return this.prisma.post.findMany();
   }
 
+  findAllExcPublished() {
+    return this.prisma.post.findMany({
+      where: {
+        published: true
+      }
+    });
+  }
+
   findOne(id: number) {
     return this.prisma.post.findUnique({
       where: {id}
@@ -40,7 +48,7 @@ export class PostService {
         published: updatePostDto.published,
       }
     })
-    return ;
+    return postUpdate;
   }
 
   remove(id: number) {

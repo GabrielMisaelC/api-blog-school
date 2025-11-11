@@ -28,6 +28,17 @@ export class CommentController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiResponse({ status: 500, description: 'Internal error.' })
   @ApiParam({name: 'id', description: 'Id of post', required: true, type: String,})
+  findAllExcPublished(@Param('postId') postId: string) {
+    return this.commentService.findAllExcPublished(+postId);
+  }
+
+  @Get('/all/:postId')
+  @ApiOperation({ summary: 'Find all comment of post id' })
+  @ApiResponse({ status: 201, description: 'successfully.' })   
+  @ApiResponse({ status: 202, description: 'None found.', isArray: true })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiResponse({ status: 500, description: 'Internal error.' })
+  @ApiParam({name: 'id', description: 'Id of post', required: true, type: String,})
   findAll(@Param('postId') postId: string) {
     return this.commentService.findAll(+postId);
   }

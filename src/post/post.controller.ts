@@ -22,7 +22,7 @@ export class PostController {
     return this.postService.create(createPostDto);
   }
 
-  @Get()
+  @Get("/all")
   @ApiOperation({ summary: 'Find all post' })
   @ApiResponse({ status: 201, description: 'successfully.' })   
   @ApiResponse({ status: 202, description: 'None found.', isArray: true })
@@ -30,6 +30,16 @@ export class PostController {
   @ApiResponse({ status: 500, description: 'Internal error.' })
   findAll() {
     return this.postService.findAll();
+  }
+
+  @Get()
+  @ApiOperation({ summary: 'Find all post' })
+  @ApiResponse({ status: 201, description: 'successfully.' })   
+  @ApiResponse({ status: 202, description: 'None found.', isArray: true })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiResponse({ status: 500, description: 'Internal error.' })
+  findAllExcPublished() {
+    return this.postService.findAllExcPublished();
   }
 
   @Get(':id')

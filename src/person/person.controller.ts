@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, HttpException } from '@nestjs/common';
 import { PersonService } from './person.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
@@ -41,6 +41,32 @@ export class PersonController {
   findOne(@Param('id') id: string) {
     return this.personService.findOne(+id);
   }
+
+  @Post('/login')
+  @ApiOperation({ summary: 'Login with email and password' })
+  @ApiResponse({
+    status: 200,
+    description: 'Login successful.',
+    type: PersonModule,
+  })
+  @ApiResponse({ status: 401, description: 'Invalid credentials.' })
+  @ApiResponse({ status: 500, description: 'Internal error.' })
+  async login(@Body() body: { email: string; password: string }) {
+    const result = await this.personService.login(body.email, body.password);
+
+    if (!result.isSuccess) {
+      throw new HttpException(
+        { achou: false, pessoa: null },
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
+    return {
+      achou: true,
+      pessoa: result.person,
+    };
+  }
+
 
   @Patch(':id')
   @ApiParam({ name: 'id', description: 'Id of person', required: true, type: Number, })
